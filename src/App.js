@@ -15,11 +15,19 @@ function App() {
     setKeyword(event.target.value);
   }
 
+  /* 
+  useEffect : API와 같이 한 번만 호출할 수 있도록 해줌
+  useEffect(() => {
+    실행할 코드 작성
+  }, [dependencyList : 지켜보려는 것(ex. keyword state의 변화가 일어났 때 실행 )]);
+  */
 
-  useEffect(() => {  // useEffect : API와 같이 한 번만 호출할 수 있도록 해줌
+  // 아무 변화가 없기 때문에 실행이 '한 번' 만 진행됨
+  useEffect(() => {
     console.log('I run only once');
   }, []);
 
+  // keyword 또는 counter state의 변화가 있을 때만 각각 실행됨
   useEffect( () => {
     console.log("I run when 'keyword' changes");
   }, [keyword]) // [특정키워드] 를 작성하면 해당 것만 작동한다.
@@ -28,6 +36,7 @@ function App() {
     console.log("I run when 'counter' changes");
   }, [counter])
 
+  // keyword 또는 counter 하나라도 변화가 있을 때 실행됨
   useEffect( () => {
     console.log("I run when 'keyword' & 'counter' changes");
   }, [keyword ,counter])
