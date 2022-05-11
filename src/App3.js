@@ -34,8 +34,16 @@ function App3 () {
         수정하는 함수를 사용할 것
         */
     }
-    console.log(toDos);
+    // console.log(toDos);
 
+    /* 
+    araay.map()
+    1) map 은 array안에 새로운 array 값을 가지고 싶을 때, 안에 함수를 넣을 수 있도록 해줌
+    2) 이 함수는 array의 모든 item에 대해서 실행될거임!
+    3) 실행 된 함수의 return 된 값이 새로운 array 안에 들어가게 된다구!
+    => map은 하나의 array에 있는 item을 내가 원하는 무엇이든지로 바꿔주고 새로운 array로 return 해줌
+
+    */
     return (
         <>
             <h1>My To Dos({toDos.length})</h1>
@@ -48,6 +56,12 @@ function App3 () {
                 />
                 <button>Add To Do</button>
             </form>
+            <hr />
+            <ul>
+                {toDos.map((item, index) => (
+                    <li key={index}>{item}</li>
+                ))}
+            </ul>
         </>
     )
 }
