@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 
 function Detail() {
     const { id } = useParams();
+    // useParams() 로 해당 data의 ID 값을 가져와 API 호출에 사용
     const getMovie = async () => {
         const json = await (
             await fetch(
