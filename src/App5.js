@@ -1,55 +1,37 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import {
+	BrowserRouter as Router,
+	Routes,
+	Route,
+} from "react-router-dom";
+import Home from "./routes/Home"
+import Detail from "./routes/Detail";
+
 
 function App5 () {
-    const [loading, setLoading] = useState(true);
-    const [movies, setMovies] = useState([]);
-    
-		// async-await 사용
-    const getMovies = async() => {
-			const json = await (
-				await fetch(
-					'http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=f5eef3421c602c6cb7ea224104795888&targetDt=20120101'
-				)
-			).json();
-			setMovies(json.boxOfficeResult.dailyBoxOfficeList);
-			setLoading(false);
-		}
-
-		useEffect(() => {
-			getMovies();
-		}, [])
-		
-    /* then 사용했을 때 
-        useEffect(() => {
-            fetch('http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=f5eef3421c602c6cb7ea224104795888&targetDt=20120101')
-            .then((response) => response.json())
-            .then(json => {
-                setMovies(json.boxOfficeResult.dailyBoxOfficeList);
-                setLoading(false);
-            })
-        }, [])
-    */
-		console.log(movies)
-			
-    return (
-        <>
-            {loading ? (
-							<h1>Loading...</h1>
-						) : (
-							<div>
-								{movies.map((item) => (
-									<div key={item.audiAcc}>
-										<h2>{item.movieNm}</h2>
-										<p>개봉일: {item.openDt}</p>
-										<p>영화순위: {item.rank}위</p>
-										<p>누적관객수: {item.audiCnt.toLocaleString()}명</p>
-									</div>
-								))}
-							</div>
-						)}
-        </>
-    )
+	return (
+		<Router>
+			<Routes>
+				<Route path="/hello" element={<h1>Hello</h1>} />
+				<Route path="/movie/:id" element={<Detail />} />
+				<Route path="/" element={<Home />} />
+			</Routes>
+		</Router>
+	)
 }
+/* 
+<Router> : 유저에게 보여주고 싶은 페이지를 render해주는 리우터
+	<Switch> : 한 번에 하나의 Route만 렌더링 해주기 위해 사용  /  but, <Switch>는 5버전에서 사용 현재는 6버전 사용
+		<Route path="/"> : path="/" / 하나만 사용하면 Home을 보여주기 위함
+			<Home />
+		</Route>
+		<Route path="/users"> : path="/users" Users 페이지를 보여주기 위함
+			<Users />
+		</Route>
+	</Switch>
+</Router>
+
+
+*/
 
 export default App5;
